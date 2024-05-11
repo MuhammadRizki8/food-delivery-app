@@ -1,30 +1,37 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/model/auth_state.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:meta/meta.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Definition of the state classes
-@immutable
-abstract class LoginState {}
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit() : super(AuthInitial());
 
-class LoginInitial extends LoginState {}
+  Future<void> registerUser(String username, String password) async {
+    emit(RegistrationLoading());
+    try {
+      var response = await http.post(
+        Uri.parse('http://146.190.109.66:8000/users/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'username': username, 'password': password}),
+      );
 
-class LoginLoading extends LoginState {}
-
-class LoginSuccess extends LoginState {
-  final String accessToken;
-  LoginSuccess(this.accessToken);
-}
-
-class LoginFailed extends LoginState {
-  final String error;
-  LoginFailed(this.error);
-}
-
-// LoginCubit class that manages the state based on the login process
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        emit(RegistrationSuccess(username: data['username'], id: data['id']));
+        print("Berhasil Registrasi");
+      } else {
+        print(response.body);
+        emit(RegistrationFailed(error: 'Failed to Register'));
+      }
+    } catch (e) {
+      print(e);
+      emit(RegistrationFailed(error: e.toString()));
+    }
+  }
 
   Future<void> loginUser(String username, String password) async {
     emit(LoginLoading());

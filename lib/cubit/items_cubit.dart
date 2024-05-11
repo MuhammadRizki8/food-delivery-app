@@ -1,30 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/model/items_state.dart';
 import 'package:food_delivery_app/prefs/user_prefs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-class ItemsState {}
-
-class ItemsInitial extends ItemsState {}
-
-class ItemsLoading extends ItemsState {}
-
-class ItemsLoadedAll extends ItemsState {
-  final List<dynamic> itemsAll;
-  ItemsLoadedAll(this.itemsAll);
-}
-
-class ItemsLoadedFilter extends ItemsState {
-  final List<dynamic> itemsFilter;
-  ItemsLoadedFilter(this.itemsFilter);
-}
-
-class ItemsError extends ItemsState {
-  final String message;
-  ItemsError(this.message);
-}
 
 class ItemsCubit extends Cubit<ItemsState> {
   ItemsCubit() : super(ItemsInitial());

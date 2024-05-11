@@ -4,8 +4,7 @@ import 'package:food_delivery_app/cubit/cart_cubit.dart';
 import 'package:food_delivery_app/cubit/items_cubit.dart';
 import 'package:food_delivery_app/cubit/status_cubit.dart';
 import 'package:food_delivery_app/pages/registration_page.dart';
-import 'cubit/registration_cubit.dart';
-import 'cubit/login_cubit.dart';
+import 'cubit/auth_cubit.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,11 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegistrationCubit>(
-          create: (context) => RegistrationCubit(),
-        ),
-        BlocProvider<LoginCubit>(
-          create: (context) => LoginCubit(),
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(),
         ),
         BlocProvider<ItemsCubit>(
           create: (context) => ItemsCubit()..fetchItemsAll(),

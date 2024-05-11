@@ -1,23 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:food_delivery_app/model/status_state.dart';
 import 'package:food_delivery_app/prefs/user_prefs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-abstract class StatusState {}
-
-class StatusInitial extends StatusState {}
-
-class StatusLoading extends StatusState {}
-
-class StatusLoaded extends StatusState {
-  final dynamic status;
-  StatusLoaded(this.status);
-}
-
-class StatusError extends StatusState {
-  final String message;
-  StatusError(this.message);
-}
 
 class StatusCubit extends Cubit<StatusState> {
   StatusCubit() : super(StatusInitial());

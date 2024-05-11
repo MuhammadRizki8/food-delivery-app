@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/cubit/cart_cubit.dart';
-import 'package:food_delivery_app/cubit/status_cubit.dart'; // Ensure correct import
+import 'package:food_delivery_app/cubit/status_cubit.dart';
+import 'package:food_delivery_app/model/status_state.dart'; // Ensure correct import
 
 class StatusPage extends StatelessWidget {
   StatusPage({Key? key}) : super(key: key);
